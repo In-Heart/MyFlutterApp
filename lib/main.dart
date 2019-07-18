@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'utils/NetWorkUtils.dart';
+import 'package:uuid/uuid.dart';
+import 'utils/AES.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,16 +48,55 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String text = '';
+
+
 
   void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+
+
+    Map<String, dynamic> params ={
+      'name': '板'
+    };
+    doPostDio('/product/findProductByName',params, (success, data)=>{
+      setState((){
+      text = data.toString();
+      })
     });
+
+//    var uuid = new Uuid();
+//    var validateCode = 5723;
+//    Map<String, dynamic> params ={
+//      'app_id': '2',
+////      'loginMode': '3',
+//      'loginName': 'test001',
+//      'loginPwd': EnCrypt('./Jjcrm_2019!'),
+////      'loginPwd': 'aGJ4YTVRVUt4RDJQQXNsWW74dUymIPAYKkrzVKU8OZk=',
+////      'picUuid': uuid.v4().toString(),
+////      'validateCode': '$validateCode'
+//    };
+
+//    doPost2('/hftcrm_api/login',params, (success, data)=>{
+//    doPost2('/nf_api/login',params, (success, data)=>{
+//      // ignore: expected_token
+//
+//        setState((){
+//          text = data.toString();
+//        })
+//    });
+//  String str =  EnCrypt('111111');
+//  setState(() {
+//    text = str;
+//  });
+
+//    setState(() {
+//      // This call to setState tells the Flutter framework that something has
+//      // changed in this State, which causes it to rerun the build method below
+//      // so that the display can reflect the updated values. If we changed
+//      // _counter without calling setState(), then the build method would not be
+//      // called again, and so nothing would appear to happen.
+//      _counter++;
+//    });
   }
 
   @override
@@ -95,7 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+//              '$_counter',
+              '$text',
               style: Theme.of(context).textTheme.display1,
             ),
           ],
